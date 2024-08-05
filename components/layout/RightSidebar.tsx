@@ -10,6 +10,8 @@ import { MdOutlineGroupAdd } from "react-icons/md";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { BellIcon } from "lucide-react";
 
+import { UserButton, useUser } from "@clerk/nextjs";
+
 const RightSidebarLink = [
     {
         src: "/friend-request",
@@ -97,6 +99,17 @@ const GroupListItem: React.FC<{ item: GroupItem }> = ({ item }) => (
 
 const RightSidebar = () => {
   const pathname = usePathname();
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  if (!isLoaded || !isSignedIn) {
+    return <p>Loading..</p>;
+  }
+
+  const avatarFallbackName = user 
+    ? (user.firstName && user.firstName.length > 0 ? user.firstName[0] : "") 
+    + (user.lastName && user.lastName.length > 0 ? user.lastName[0] : "") 
+    : "DC";
+
 
   return (
     <nav className="flex flex-col w-[20rem] z-20 bg-white h-screen sticky top-0 shadow-lg border-r border-gray-200 right-0">
@@ -107,8 +120,9 @@ const RightSidebar = () => {
             </Link>
         ))}
         <Avatar className="h-8 w-8">
-          <AvatarImage   src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          {/* <AvatarImage src={user.imageUrl} />
+          <AvatarFallback>{avatarFallbackName}</AvatarFallback> */}
+        <UserButton/>
         </Avatar>
       </div>
       <div className="p-4 overflow-y-auto">
