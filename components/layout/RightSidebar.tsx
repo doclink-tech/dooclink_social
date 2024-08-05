@@ -18,7 +18,7 @@ const RightSidebarLink = [
         icon: <MdOutlineGroupAdd  className="text-muted-foreground h-6 w-6" />
     },
     {
-        src: "/friend-request",
+        src: "/messages",
         icon: <IoChatbubbleEllipsesOutline  className="text-muted-foreground h-6 w-6"/>
     },
     {
